@@ -1,0 +1,9 @@
+{
+    "testFiles": [
+    "sign-up.spec.js",
+    "global-feed.spec.js",
+    "new-article.spec.js",
+    "settings-user.spec.js",
+    "log-out.spec.js"
+  ]
+}
