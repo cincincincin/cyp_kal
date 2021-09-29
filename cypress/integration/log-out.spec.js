@@ -1,6 +1,11 @@
 const testConfig = require(`../config/config`);
 /* Test set - !please check config first!*/
 describe(`Log in and add article tests`, () => {
+  Cypress.on('uncaught:exception', (err, runnable) => {
+    // returning false here prevents Cypress from
+    // failing the test
+    return false
+  })
     before(() => {
         cy.visit(testConfig.page)
         .contains(`Sign in`).click()
@@ -10,7 +15,7 @@ describe(`Log in and add article tests`, () => {
         .get(`input[placeholder*="Password"]`)
         .type(testConfig.firstUserPassword)
         .get(`.btn`).contains(`Sign in`).click()
-        .get(`.navbar-brand`).click()
+        .get('.navbar-brand').click()
         .get(`a[href*="#/profile/"]`).contains(testConfig.firstUserName).should(`be.visible`)
         .get(`a[href*="#/settings"]`).contains(`Settings`).should(`be.visible`)
         .get(`a[href*="#/editor"]`).contains(`New Article`).should(`be.visible`)
@@ -31,10 +36,10 @@ describe(`Log in and add article tests`, () => {
     })
     it(`Should read the article like a unknown user properly`, () => {
         cy.get(`.preview-link`).last()
-          .invoke(`text`).then((text1) => {
+          .invoke('text').then((text1) => {
             cy.get(`.preview-link`).last().click()
-            .get(`h1`)
-            .invoke(`text`)
+            .get('h1')
+            .invoke('text')
             .should((text2) => {
                 expect(text1).contains(text2)
             })
